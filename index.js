@@ -18,6 +18,7 @@ function multiply (par1, par2) {
 console.log(multiply(1,2));
 
 function divide (par1, par2) {
+    if (par2 === 0) return 'ERROR';
     return par1 / par2;
 }
 console.log(divide(1,2));
