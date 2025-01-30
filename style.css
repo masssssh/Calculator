@@ -4,13 +4,12 @@ body {
     margin: 100px auto;    
     font-family: Arial, Helvetica, sans-serif;
 }
+
 .calculator {
     background-color: gray;
     width: 300px;    
     border-radius: 8px;
     box-shadow: 3px 3px 2px #292828;
-
-    
 }
 
 .display {
@@ -26,8 +25,6 @@ body {
     margin: 10px;
     background-color: #383737;
     box-shadow: 2px 2px 2px #0e0d0d;
-
-
 }
 
 .buttons {
@@ -50,10 +47,9 @@ body {
     font-size: 25px;
     font-weight: bold;
     box-shadow: 3px 3px 2px #292828;
-
+    cursor: pointer; 
 }
-
-#btnC {
-    background-color: rgb(250, 59, 75);
-    color: white;
+    
+.btn:hover {
+    background-color: #ddd; 
 }

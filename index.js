@@ -1,32 +1,81 @@
-let par1
-let par2
-let operator
+const display = document.querySelector('.display');
+const buttons = document.querySelectorAll('.btn');
+let par1 = '';
+let par2 = '';
+let operator = null;
 
-function sum (par1, par2) {
-    return par1 + par2;
+function sum(a, b) {
+    return a + b;
 }
-console.log(sum(1,2));
 
-function subtract (par1, par2) {
-    return par1 - par2;
+function subtract(a, b) {
+    return a - b;
 }
-console.log(subtract(1,2));
 
-function multiply (par1, par2) {
-    return par1 * par2;
+function multiply(a, b) {
+    return a * b;
 }
-console.log(multiply(1,2));
 
-function divide (par1, par2) {
-    if (par2 === 0) return 'ERROR';
-    return par1 / par2;
+function divide(a, b) {
+    if (b === 0) return 'ERROR';
+    return a / b;
 }
-console.log(divide(1,2));
 
-function operate (par1, par2, operator) {
-    if (operator === "+") return sum (par1, par2);
-    if (operator === "-") return subtract (par1, par2);
-    if (operator === "*") return multiply (par1, par2);
-    if (operator === "/") return divide (par1, par2);
+function operate(par1, par2, operator) {
+    par1 = parseFloat(par1);
+    par2 = parseFloat(par2);
 
+    if (isNaN(par1) || isNaN(par2)) return 'ERROR';
+
+    let result;
+    switch (operator) {
+        case '+': result = sum(par1, par2); break;
+        case '-': result = subtract(par1, par2); break;
+        case '*': result = multiply(par1, par2); break;
+        case '/': result = divide(par1, par2); break;
+        default: return 'ERROR';
+    }
+
+    return Math.round(result * 1000) / 1000; 
 }
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        let value = button.textContent;
+
+        if (value === '×') value = '*';
+        if (value === '÷') value = '/';
+        if (value === '−') value = '-'; 
+
+        if (!isNaN(value) || value === '.') {
+            
+            if (operator === null) {
+                par1 += value;
+                display.textContent = par1;
+            } else {
+                par2 += value;
+                display.textContent = par2;
+            }
+        } else if (['+', '-', '*', '/'].includes(value)) {
+            
+            if (par1 !== '' && par2 === '') {
+                operator = value;
+            }
+        } else if (value === '=') {
+            
+            if (par1 !== '' && par2 !== '' && operator) {
+                const result = operate(par1, par2, operator);
+                display.textContent = result;
+                par1 = result.toString(); 
+                par2 = '';
+                operator = null;
+            }
+        } else if (value === 'C') {
+
+            par1 = '';
+            par2 = '';
+            operator = null;
+            display.textContent = '';
+        }
+    });
+});
